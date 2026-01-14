@@ -1,4 +1,4 @@
-/* SlimDesk Sidebar Styles - Dark Theme v3.38 */
+/* SlimDesk Sidebar Styles - Dark Theme v3.39 */
 
 body {
     padding-left: 60px !important;
@@ -11,9 +11,18 @@ body {
     left: 0;
     height: 100vh;
     width: 60px;
+    background-color: #1a202c;
+    /* Restored */
+    border-right: 1px solid #2d3748;
+    /* Restored */
+    z-index: 90;
+    /* Restored */
+    display: flex;
+    /* Restored */
+    flex-direction: column;
+    /* Restored */
     align-items: center;
     padding-top: 8px;
-    /* Reduced from 15px */
     padding-bottom: 10px;
 }
 
