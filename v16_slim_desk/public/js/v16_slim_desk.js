@@ -154,7 +154,7 @@ frappe.ui.SlimDesk = class SlimDesk {
     append_icon($container, item) {
         let icon_html = this.get_icon_html(item);
         $(`
-            <div class="slim-icon-wrapper" data-route="${item.route}" data-toggle="tooltip" title="${item.label}">
+            <div class="slim-icon-wrapper" data-route="${item.route}" data-toggle="tooltip" title="${item.tooltip || item.label}">
                 <div class="slim-icon" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
                     ${icon_html}
                 </div>
@@ -420,10 +420,28 @@ frappe.ui.SlimDesk = class SlimDesk {
 
     show_shortcut_dialog(parent_dialog, existing_data = null, $existing_row = null) {
         let is_edit = !!existing_data;
+
         let d = new frappe.ui.Dialog({
-            title: is_edit ? 'Edit Item' : 'Add Custom Shortcut',
+            title: is_edit ? 'Edit Item' : 'Add Shortcut',
             fields: [
-                { label: 'DocType / Page (Ref)', fieldname: 'ref_doctype', fieldtype: 'Link', options: 'DocType' },
+                {
+                    label: 'Link Type', fieldname: 'shortcut_type', fieldtype: 'Select',
+                    options: ['DocType', 'Report', 'Page', 'Custom Route'],
+                    default: 'DocType',
+                    reqd: 1
+                },
+                {
+                    label: 'DocType', fieldname: 'ref_doctype', fieldtype: 'Link', options: 'DocType',
+                    depends_on: 'eval:doc.shortcut_type=="DocType"'
+                },
+                {
+                    label: 'Report', fieldname: 'ref_report', fieldtype: 'Link', options: 'Report',
+                    depends_on: 'eval:doc.shortcut_type=="Report"'
+                },
+                {
+                    label: 'Page', fieldname: 'ref_page', fieldtype: 'Link', options: 'Page',
+                    depends_on: 'eval:doc.shortcut_type=="Page"'
+                },
                 { label: 'Label', fieldname: 'label', fieldtype: 'Data', reqd: 1, default: existing_data ? existing_data.label : '' },
                 { label: 'Route', fieldname: 'route', fieldtype: 'Data', reqd: 1, default: existing_data ? existing_data.route : '' },
                 { label: 'Icon', fieldname: 'icon', fieldtype: 'Icon', default: existing_data ? existing_data.icon : '' }
@@ -446,18 +464,37 @@ frappe.ui.SlimDesk = class SlimDesk {
             }
         });
 
+        // 1. DocType Logic
         d.fields_dict.ref_doctype.$input.on('change', () => {
-            let dt = d.get_value('ref_doctype');
-            if (dt) {
-                // Only overwrite if empty or user wants
-                if (!d.get_value('label')) d.set_value('label', dt);
-                if (!d.get_value('route')) d.set_value('route', `/ app / ${frappe.router.slug(dt)} `);
-
-                frappe.db.get_value('DocType', dt, 'icon').then(r => {
+            let val = d.get_value('ref_doctype');
+            if (val) {
+                if (!d.get_value('label')) d.set_value('label', val);
+                if (!d.get_value('route')) d.set_value('route', `/app/${frappe.router.slug(val)}`);
+                frappe.db.get_value('DocType', val, 'icon').then(r => {
                     if (r && r.message && r.message.icon) d.set_value('icon', r.message.icon);
                 });
             }
         });
+
+        // 2. Report Logic
+        d.fields_dict.ref_report.$input.on('change', () => {
+            let val = d.get_value('ref_report');
+            if (val) {
+                if (!d.get_value('label')) d.set_value('label', val);
+                // Standard Report URL
+                d.set_value('route', `/app/query-report/${val}`);
+            }
+        });
+
+        // 3. Page Logic
+        d.fields_dict.ref_page.$input.on('change', () => {
+            let val = d.get_value('ref_page');
+            if (val) {
+                if (!d.get_value('label')) d.set_value('label', val);
+                d.set_value('route', `/app/${frappe.router.slug(val)}`);
+            }
+        });
+
         d.show();
     }
 

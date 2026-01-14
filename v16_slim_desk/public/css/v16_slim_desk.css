@@ -1,7 +1,8 @@
-/* SlimDesk Sidebar Styles */
+/* SlimDesk Sidebar Styles - Dark Theme v3.34 */
 
 body {
-    padding-left: 50px !important;
+    padding-left: 60px !important;
+    /* Increased from 50px */
 }
 
 #slim-sidebar {
@@ -9,15 +10,16 @@ body {
     top: 0;
     left: 0;
     height: 100vh;
-    width: 50px;
-    background-color: #f4f5f7;
-    border-right: 1px solid #e2e6ea;
+    width: 60px;
+    background-color: #1a202c;
+    /* Dark Slate 900 */
+    border-right: 1px solid #2d3748;
     z-index: 90;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .slim-top-section,
@@ -48,24 +50,27 @@ body {
 
 /* Icon Wrapper */
 .slim-icon-wrapper {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 44px;
+    /* Increased Size */
+    height: 44px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
-    color: #5e6d82;
+    color: #a0aec0;
+    /* Light Grey Default */
     background-color: transparent;
 }
 
 #slim-sidebar .slim-icon-wrapper.active {
     background-color: #2490ef !important;
+    /* Blue Active Background */
     color: #ffffff !important;
-    box-shadow: 0 2px 5px rgba(36, 144, 239, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 #slim-sidebar .slim-icon-wrapper.active svg {
@@ -89,39 +94,41 @@ body {
 .slim-icon-wrapper:hover:not(.active),
 .slim-home-icon:hover,
 .slim-edit-icon:hover {
-    background-color: #e2e6ea;
+    background-color: #2d3748;
+    /* Dark Hover */
+    color: #ffffff;
 }
 
 .slim-home-icon,
 .slim-edit-icon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    color: #5e6d82;
+    color: #a0aec0;
 }
 
 .slim-divider {
     height: 1px;
     width: 70%;
-    background-color: #d1d8dd;
-    margin: 8px 0;
+    background-color: #4a5568;
+    margin: 12px 0;
 }
 
 /* Icons */
 .icon-lg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     stroke: currentColor;
     fill: none;
 }
 
 .icon-md {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     stroke: currentColor;
     fill: none;
 }
@@ -133,9 +140,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background-color: #ebecf0;
-    color: #444;
+    border-radius: 10px;
+    background-color: #2d3748;
+    color: #cbd5e0;
     transition: background-color 0.2s;
 }
 
@@ -147,13 +154,13 @@ body {
 
 .slim-text-icon {
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     text-transform: uppercase;
 }
 
 /* FontAwesome Tweaks */
 .slim-icon-wrapper i {
-    font-size: 16px;
+    font-size: 18px;
     color: currentColor;
     display: inline-block;
     width: 100%;
@@ -165,7 +172,7 @@ body {
     pointer-events: none;
 }
 
-/* Sortable List */
+/* Sortable List (Keep Light for Dialog) */
 .slim-sort-list {
     border: 1px solid #d1d8dd;
     border-radius: 6px;
@@ -244,21 +251,22 @@ body {
     background-color: #e2e6ea;
 }
 
-/* SVG Grayscale Logic */
+/* SVG Grayscale Logic - Dark Theme Adaptation */
 .slim-svg-icon {
-    filter: grayscale(100%);
+    /* Default: Light Grey / Whiteish */
+    filter: brightness(0) invert(0.8);
     opacity: 0.8;
     transition: all 0.2s ease;
 }
 
-#slim-sidebar .slim-icon-wrapper.active .slim-svg-icon {
-    /* High Contrast: Pure White Icon on Blue Background */
+#slim-sidebar .slim-icon-wrapper:hover .slim-svg-icon {
+    /* Hover: Pure White */
     filter: brightness(0) invert(1);
     opacity: 1;
 }
 
-#slim-sidebar .slim-icon-wrapper:hover:not(.active) .slim-svg-icon {
-    /* Hover: Full Original Color */
-    filter: none;
+#slim-sidebar .slim-icon-wrapper.active .slim-svg-icon {
+    /* Active: Pure White on Blue */
+    filter: brightness(0) invert(1);
     opacity: 1;
 }
