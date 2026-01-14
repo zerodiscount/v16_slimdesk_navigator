@@ -16,8 +16,19 @@ In the standard Frappe v16 UI, navigating between different modules (e.g., *Buyi
 *   **Fully Customizable:** Drag & drop reordering via a simple "Edit" dialog.
 
 ## Screenshots
-![SlimDesk Sidebar](https://placeholder-listing-image.png)
-*(Add a screenshot of the sidebar in action here)*
+
+### Persistent Sidebar
+The sidebar stays with you across different modules, providing a stable visual anchor.
+![SlimDesk Sidebar](images/sidebar-main.png)
+
+### Customization
+Easily reorder, hide, or edit items with a simple drag-and-drop interface.
+![Reorder Dialog](images/sidebar-reorder.png)
+
+### Smart Shortcuts
+Add shortcuts to DocTypes, specific Reports, or Pages.
+![Shortcut Editor](images/shortcut-editor.png)
+
 
 ## Installation
 
