@@ -3,7 +3,7 @@ frappe.provide('frappe.ui');
 frappe.ui.SlimDesk = class SlimDesk {
     constructor() {
         this.wrapper = $('#slim-sidebar');
-        console.log("SlimDesk v3.35 Init");
+        console.log("SlimDesk v3.36 Init");
         this.init_when_ready();
     }
 
@@ -432,15 +432,51 @@ frappe.ui.SlimDesk = class SlimDesk {
                 },
                 {
                     label: 'DocType', fieldname: 'ref_doctype', fieldtype: 'Link', options: 'DocType',
-                    depends_on: 'eval:doc.shortcut_type=="DocType"'
+                    depends_on: 'eval:doc.shortcut_type=="DocType"',
+                    onchange: () => {
+                        let val = d.get_value('ref_doctype');
+                        if (val) {
+                            if (!d.get_value('label')) d.set_value('label', val);
+                            if (!d.get_value('route')) d.set_value('route', `/app/${frappe.router.slug(val)}`);
+                            frappe.db.get_value('DocType', val, 'icon').then(r => {
+                                if (r && r.message && r.message.icon) d.set_value('icon', r.message.icon);
+                            });
+                        }
+                    }
                 },
                 {
                     label: 'Report', fieldname: 'ref_report', fieldtype: 'Link', options: 'Report',
-                    depends_on: 'eval:doc.shortcut_type=="Report"'
+                    depends_on: 'eval:doc.shortcut_type=="Report"',
+                    onchange: () => {
+                        let val = d.get_value('ref_report');
+                        if (val) {
+                            if (!d.get_value('label')) d.set_value('label', val);
+                            frappe.db.get_value('Report', val, ['report_type', 'ref_doctype', 'is_standard'])
+                                .then(r => {
+                                    if (r && r.message) {
+                                        let report = r.message;
+                                        let route = '';
+                                        if (report.report_type === 'Report Builder') {
+                                            route = `/app/${frappe.router.slug(report.ref_doctype)}/view/report/${val}`;
+                                        } else {
+                                            route = `/app/query-report/${val}`;
+                                        }
+                                        d.set_value('route', route);
+                                    }
+                                });
+                        }
+                    }
                 },
                 {
                     label: 'Page', fieldname: 'ref_page', fieldtype: 'Link', options: 'Page',
-                    depends_on: 'eval:doc.shortcut_type=="Page"'
+                    depends_on: 'eval:doc.shortcut_type=="Page"',
+                    onchange: () => {
+                        let val = d.get_value('ref_page');
+                        if (val) {
+                            if (!d.get_value('label')) d.set_value('label', val);
+                            d.set_value('route', `/app/${frappe.router.slug(val)}`);
+                        }
+                    }
                 },
                 { label: 'Label', fieldname: 'label', fieldtype: 'Data', reqd: 1, default: existing_data ? existing_data.label : '' },
                 { label: 'Route', fieldname: 'route', fieldtype: 'Data', reqd: 1, default: existing_data ? existing_data.route : '' },
@@ -461,37 +497,6 @@ frappe.ui.SlimDesk = class SlimDesk {
                     this.add_item_to_list(parent_dialog, new_item);
                 }
                 d.hide();
-            }
-        });
-
-        // 1. DocType Logic
-        d.fields_dict.ref_doctype.$input.on('change', () => {
-            let val = d.get_value('ref_doctype');
-            if (val) {
-                if (!d.get_value('label')) d.set_value('label', val);
-                if (!d.get_value('route')) d.set_value('route', `/app/${frappe.router.slug(val)}`);
-                frappe.db.get_value('DocType', val, 'icon').then(r => {
-                    if (r && r.message && r.message.icon) d.set_value('icon', r.message.icon);
-                });
-            }
-        });
-
-        // 2. Report Logic
-        d.fields_dict.ref_report.$input.on('change', () => {
-            let val = d.get_value('ref_report');
-            if (val) {
-                if (!d.get_value('label')) d.set_value('label', val);
-                // Standard Report URL
-                d.set_value('route', `/app/query-report/${val}`);
-            }
-        });
-
-        // 3. Page Logic
-        d.fields_dict.ref_page.$input.on('change', () => {
-            let val = d.get_value('ref_page');
-            if (val) {
-                if (!d.get_value('label')) d.set_value('label', val);
-                d.set_value('route', `/app/${frappe.router.slug(val)}`);
             }
         });
 
