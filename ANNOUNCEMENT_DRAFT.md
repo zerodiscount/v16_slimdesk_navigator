@@ -2,7 +2,7 @@
 
 Hi everyone,
 
-Like many of you testing the new v16 UI, I found myself getting "lost" when navigating between different modules. The new design is beautiful, but the constant need to click "Home" or "Desk" just to switch from *Buying* to *Selling* or *Stock* was adding friction to my workflow. I missed the structure and "anchor" of a persistent navigation sidebar.
+Like many of you testing the new v16 UI, I found myself getting "lost" when navigating between different modules. The new design is beautiful, but the constant need to click "Home" or "Desk" just to switch was getting confusing -  I missed the structure and "anchor" of a persistent navigation sidebar.
 
 Searching through the forum, I saw I wasn't alone:
 > "Navigation inefficiency... need to return to Desk to switch modules."
@@ -17,10 +17,11 @@ It's a simple, unobtrusive app that injects a **persistent, slim sidebar** on th
 
 ### Key Features
 *   **Persistent & Unobtrusive:** Always there, but takes up minimal space.
-*   **Smart Icons:** Uses a professional grayscale "subtle" theme that matches the v16 aesthetic (color on hover).
-*   **Auto-Discovery:** Automatically detects icons for your installed apps (no configuration needed).
-*   **Fully Customizable:** Drag & drop reordering and custom links via a simple "Edit" dialog.
-*   **Native Feel:** Sorts alphabetically and respects standard Frappe Desk permissions and hidden workspaces.
+*   **Dark Theme:** Sleek sidebar aesthetics with a dedicated dark mode (`#1a202c`) and high-contrast active states.
+*   **Smart Shortcuts:** Add shortcuts to **DocTypes, Reports, or Pages**.
+*   **Custom Tooltips:** Define custom hover text for any shortcut.
+*   **Auto-Discovery:** Automatically detects icons for your installed apps.
+*   **Fully Customizable:** Drag & drop reordering via a simple "Edit" dialog.
 
 ## Screenshots
 [Insert Screenshot Here - showing the Sidebar next to a standard List View]
@@ -36,7 +37,6 @@ bench --site [your-site] install-app v16_slimdesk_navigator
 ## Repository
 [https://github.com/zerodiscount/v16_slimdesk_navigator](https://github.com/zerodiscount/v16_slimdesk_navigator)
 
-I hope this helps others who are missing that "persistent anchor" in their daily workflows! Feedback is welcome.
+I hope this helps. My contribution to the community. Feedback is welcome.
 
-Cheers,
-[Your Name]
+

@@ -3,7 +3,7 @@ frappe.provide('frappe.ui');
 frappe.ui.SlimDesk = class SlimDesk {
     constructor() {
         this.wrapper = $('#slim-sidebar');
-        console.log("SlimDesk v3.21 Init");
+        console.log("SlimDesk v3.35 Init");
         this.init_when_ready();
     }
 
