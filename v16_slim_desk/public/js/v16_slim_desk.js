@@ -320,12 +320,14 @@ frappe.ui.SlimDesk = class SlimDesk {
 d.add_custom_action('Add Shortcut', () => this.prompt_add_item(d, 'shortcut'));
 d.add_custom_action('Add Workspace', () => this.prompt_add_item(d, 'workspace'));
 
-// Restore Defaults Button
-d.add_custom_action('Restore Defaults', () => {
-    frappe.confirm('Are you sure you want to restore the default sidebar layout? This will remove all custom shortcuts.', () => {
-        this.restore_defaults(d);
+// Restore Defaults Button (Header)
+$('<button class="btn btn-xs text-muted" style="margin-left:auto; margin-right:10px;">Restore Defaults</button>')
+    .insertBefore(d.header.find('.btn-modal-close'))
+    .on('click', () => {
+        frappe.confirm('Are you sure you want to restore the default sidebar layout?', () => {
+            this.restore_defaults(d);
+        });
     });
-});
 
 
 d.show();

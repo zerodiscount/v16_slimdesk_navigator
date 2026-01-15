@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.46] - 2026-01-15
+### Fixed
+- **UI:** Moved "Restore Defaults" button to the Dialog Header (top-right) for better visibility and reliability.
+
 ## [v3.45] - 2026-01-15
 ### Fixed
 - **UI:** Simplified "Restore Defaults" button implementation to use standard `add_custom_action` matching other buttons.
