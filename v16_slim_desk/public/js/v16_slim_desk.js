@@ -316,37 +316,14 @@ frappe.ui.SlimDesk = class SlimDesk {
             primary_action: () => this.save_changes(d)
         });
     });
+
         this.render_sortable_list(d.fields_dict.list_editor.$wrapper, d);
-d.add_custom_action('Add Shortcut', () => this.prompt_add_item(d, 'shortcut'));
+let $btn_shortcut = d.add_custom_action('Add Shortcut', () => this.prompt_add_item(d, 'shortcut'));
+$btn_shortcut.addClass('mr-2'); // Add spacing
 d.add_custom_action('Add Workspace', () => this.prompt_add_item(d, 'workspace'));
-
-// Restore Defaults Button (Header)
-$('<button class="btn btn-xs text-muted" style="margin-left:auto; margin-right:10px;">Restore Defaults</button>')
-    .insertBefore(d.header.find('.btn-modal-close'))
-    .on('click', () => {
-        frappe.confirm('Are you sure you want to restore the default sidebar layout?', () => {
-            this.restore_defaults(d);
-        });
-    });
-
 
 d.show();
     }
-
-restore_defaults(dialog) {
-    frappe.call({
-        method: "v16_slim_desk.api.save_config",
-        args: { workspaces: null },
-        callback: (r) => {
-            if (!r.exc) {
-                this.config = null; // Clear local
-                this.fetch_data(); // Re-fetch defaults
-                this.render_sortable_list(dialog.fields_dict.list_editor.$wrapper, dialog);
-                frappe.show_alert({ message: 'Defaults Restored', indicator: 'green' });
-            }
-        }
-    });
-}
 
 render_sortable_list($parent, dialog) {
     $parent.html('<div class="slim-sort-list"></div>');
