@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.51] - 2026-01-16
+### Fixed
+- **Installation:** Cleared `modules.txt` as this is a pure UI/API app without DocTypes. This prevents `ModuleNotFoundError` and `TypeError` during installation by stopping Frappe from attempting to sync a non-existent sub-module.
+
 ## [v3.50] - 2026-01-16
 ### Fixed
 - **Critical:** Restored inner module directory `v16_slim_desk/v16_slim_desk` which was accidentally removed. This fixes the `ModuleNotFoundError` during installation.

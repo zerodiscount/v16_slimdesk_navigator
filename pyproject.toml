@@ -21,7 +21,7 @@ build-backend = "flit_core.buildapi"
 
 [tool.ruff]
 line-length = 110
-target-version = "3.50.0"
+target-version = "3.51.0"
 
 [tool.ruff.lint]
 select = [
