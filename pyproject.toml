@@ -1,6 +1,6 @@
 [project]
 name = "v16_slim_desk"
-version = "3.59.0"
+version = "3.60.0"
 description = "Office 365 style sidebar"
 authors = [
     { name = "Antigravity", email = "admin@example.com"}

@@ -3,7 +3,7 @@ frappe.provide('frappe.ui');
 frappe.ui.SlimDesk = class SlimDesk {
     constructor() {
         this.wrapper = $('#slim-sidebar');
-        console.log("SlimDesk v3.59 Init");
+        console.log("SlimDesk v3.60 Init");
         this.init_when_ready();
     }
 
@@ -312,7 +312,7 @@ frappe.ui.SlimDesk = class SlimDesk {
         console.log("SlimDesk: Open Customize Dialog Clicked");
         try {
             const d = new frappe.ui.Dialog({
-                title: 'Customize Sidebar',
+                title: 'Customize SlimDesk',
                 fields: [{ fieldtype: 'HTML', fieldname: 'list_editor' }],
                 primary_action_label: 'Save Changes',
                 primary_action: () => this.save_changes(d)
