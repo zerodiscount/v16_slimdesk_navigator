@@ -184,6 +184,7 @@ body {
 /* Tooltip */
 .tooltip {
     pointer-events: none;
+    position: fixed !important;
 }
 
 /* Sortable List (Keep Light for Dialog) */
