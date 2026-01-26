@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.73] - 2026-01-26
+### Changed
+- **UI:** Reduced vertical spacing between sidebar icons (from 10px to 6px) to accommodate more items in the viewport.
+
 ## [v3.72] - 2026-01-26
 ### Fixed
 - **Scroll Logic:** Added `flex-shrink: 0` to sidebar icons to ensure they retain their size and trigger scrolling when the list exceeds the viewport height.
