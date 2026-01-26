@@ -78,6 +78,9 @@ body {
     color: #a0aec0;
     /* Light Grey Default */
     background-color: transparent;
+    outline: none !important; /* Prevent Focus Ring */
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #slim-sidebar .slim-icon-wrapper.active {

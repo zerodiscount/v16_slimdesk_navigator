@@ -114,6 +114,7 @@ frappe.ui.SlimDesk = class SlimDesk {
         const self = this;
         // ONLY bind Router/Tooltip logic here. Click events are now direct.
         frappe.router.on('change', () => {
+            console.log("%cSlimDesk: Router Change Detected", "color: cyan; font-weight: bold;", frappe.get_route_str());
             // Robust Re-check: If sidebar is missing, rebuild.
             if ($('#slim-sidebar').length === 0) self.setup();
             setTimeout(() => self.highlight_active(), 200);
@@ -132,6 +133,9 @@ frappe.ui.SlimDesk = class SlimDesk {
     render_items() {
         const $container = $('#slim-sidebar .slim-scroll-section');
         $container.empty();
+
+        console.log("SlimDesk Config:", this.config);
+
         this.config.forEach(item => {
             if (item.hidden) return;
             this.append_icon($container, item);
@@ -140,6 +144,7 @@ frappe.ui.SlimDesk = class SlimDesk {
     }
 
     append_icon($container, item) {
+        // console.log(`SlimDesk Render: ${item.label} -> ${item.route}`);
         let icon_html = this.get_icon_html(item);
         let $item = $(`
             <div class="slim-icon-wrapper" data-route="${item.route}" data-toggle="tooltip" title="${item.tooltip || item.label}">
@@ -152,9 +157,15 @@ frappe.ui.SlimDesk = class SlimDesk {
         // Direct Click Binding
         $item.on('click', function () {
             try {
+                // Remove focus to prevent sticky hover states
+                $(this).blur();
+
                 let route = $(this).attr('data-route');
+
+                // Immediate Visual Feedback
                 $('#slim-sidebar .slim-icon-wrapper').removeClass('active');
                 $(this).addClass('active');
+
                 if (route) {
                     if (route.startsWith('/app/')) {
                         let parts = route.substring(5).split('/');
@@ -274,28 +285,46 @@ frappe.ui.SlimDesk = class SlimDesk {
         if ($('#slim-sidebar').length === 0) return;
         let current_route_parts = frappe.get_route();
         let current_route_str = current_route_parts.join('/');
-        let normalized_current = '/app/' + current_route_str;
+
+        // Normalize: Handle 'Workspaces/Home' -> 'Home'
+        // Some versions of Frappe use /app/workspaces/name, others /app/name
+        let clean_route = current_route_str.toLowerCase();
+        if (clean_route.startsWith('workspaces/')) {
+            clean_route = clean_route.replace('workspaces/', '');
+        }
+
+        // Final check targets: /app/home and /app/private/home cases
+        let targets = [
+            '/app/' + clean_route,
+            '/app/' + current_route_str // fallback to exact
+        ];
 
         let best_match = null;
         let max_len = 0;
+
         $('#slim-sidebar .slim-icon-wrapper').each(function () {
             let $btn = $(this);
-            let btn_route = $btn.attr('data-route');
-            if (btn_route && normalized_current.startsWith(btn_route)) {
-                if (btn_route.length > max_len) {
-                    max_len = btn_route.length;
-                    best_match = $btn;
+            let btn_route = ($btn.attr('data-route') || '').toLowerCase();
+
+            // Check against both normalized targets
+            targets.forEach(t => {
+                if (btn_route && t.toLowerCase().startsWith(btn_route)) {
+                    // Prioritize exact or longer matches
+                    if (btn_route.length > max_len) {
+                        max_len = btn_route.length;
+                        best_match = $btn;
+                    }
                 }
-            }
+            });
         });
+
+        $('#slim-sidebar .slim-icon-wrapper').removeClass('active');
         if (best_match) {
-            $('#slim-sidebar .slim-icon-wrapper').removeClass('active');
             best_match.addClass('active');
         }
     }
 
     open_customize_dialog() {
-        console.log("SlimDesk: Open Customize Dialog Clicked");
         try {
             const d = new frappe.ui.Dialog({
                 title: 'Customize SlimDesk',
@@ -304,10 +333,7 @@ frappe.ui.SlimDesk = class SlimDesk {
                 primary_action: () => this.save_changes(d)
             });
 
-            console.log("SlimDesk: Dialog Instance Created", d);
-
             this.render_sortable_list(d.fields_dict.list_editor.$wrapper, d);
-            console.log("SlimDesk: Sortable List Rendered");
 
 
             let $btn_reset = d.add_custom_action('Reset Defaults', () => {
