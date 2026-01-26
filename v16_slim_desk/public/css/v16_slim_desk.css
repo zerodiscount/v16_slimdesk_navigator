@@ -64,6 +64,7 @@ body {
 
 /* Icon Wrapper */
 .slim-icon-wrapper {
+    flex-shrink: 0;
     width: 44px;
     /* Increased Size */
     height: 44px;
@@ -78,7 +79,8 @@ body {
     color: #a0aec0;
     /* Light Grey Default */
     background-color: transparent;
-    outline: none !important; /* Prevent Focus Ring */
+    outline: none !important;
+    /* Prevent Focus Ring */
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }

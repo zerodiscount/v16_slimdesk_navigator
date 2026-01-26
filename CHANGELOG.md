@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.72] - 2026-01-26
+### Fixed
+- **Scroll Logic:** Added `flex-shrink: 0` to sidebar icons to ensure they retain their size and trigger scrolling when the list exceeds the viewport height.
+
 ## [v3.71] - 2026-01-26
 ### Docs
 - Updated README to highlight Scrollable support and "Reset to Defaults" functionality.
