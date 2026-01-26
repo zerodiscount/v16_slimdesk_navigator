@@ -65,14 +65,14 @@ body {
 /* Icon Wrapper */
 .slim-icon-wrapper {
     flex-shrink: 0;
-    width: 44px;
-    /* Increased Size */
-    height: 44px;
-    border-radius: 10px;
+    width: 38px;
+    /* Reduced from 44px */
+    height: 38px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
@@ -120,12 +120,12 @@ body {
 
 .slim-home-icon,
 .slim-edit-icon {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     color: #a0aec0;
 }
@@ -134,20 +134,20 @@ body {
     height: 1px;
     width: 70%;
     background-color: #4a5568;
-    margin: 12px 0;
+    margin: 8px 0;
 }
 
 /* Icons */
 .icon-lg {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
     stroke: currentColor;
     fill: none;
 }
 
 .icon-md {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     stroke: currentColor;
     fill: none;
 }
@@ -159,8 +159,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    background-color: #2d3748;
+    border-radius: 8px;
+    background-color: transparent;
+    /* Removed dark background */
     color: #cbd5e0;
     transition: background-color 0.2s;
 }
@@ -173,13 +174,13 @@ body {
 
 .slim-text-icon {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 15px;
     text-transform: uppercase;
 }
 
 /* FontAwesome Tweaks */
 .slim-icon-wrapper i {
-    font-size: 18px;
+    font-size: 24px;
     color: currentColor;
     display: inline-block;
     width: 100%;
@@ -277,6 +278,9 @@ body {
     filter: brightness(0) invert(0.8);
     opacity: 0.8;
     transition: all 0.2s ease;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
 
 #slim-sidebar .slim-icon-wrapper:hover .slim-svg-icon {
@@ -289,4 +293,10 @@ body {
     /* Active: Pure White on Blue */
     filter: brightness(0) invert(1);
     opacity: 1;
+}
+
+/* Ensure FA icons are also sized correctly */
+.slim-icon-wrapper i {
+    font-size: 24px !important;
+    line-height: 1;
 }

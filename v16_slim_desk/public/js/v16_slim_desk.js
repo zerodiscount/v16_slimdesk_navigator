@@ -240,22 +240,22 @@ frappe.ui.SlimDesk = class SlimDesk {
             // 1. Check Explicit Map (Images/FA) - PRIORITY
             if (SVG_MAP[icon_val]) {
                 if (SVG_MAP[icon_val].startsWith('fa ')) {
-                    return `<i class="${SVG_MAP[icon_val]}" style="font-size: 18px;"></i>`;
+                    return `<i class="${SVG_MAP[icon_val]}"></i>`;
                 }
-                return `<img src="${SVG_MAP[icon_val]}" class="slim-svg-icon" style="width: 20px; height: 20px;">`;
+                return `<img src="${SVG_MAP[icon_val]}" class="slim-svg-icon">`;
             }
 
             // 2. FontAwesome Generic
             if (icon_val && (icon_val.includes('fa ') || icon_val.includes('fa-'))) {
-                return `<i class="${icon_val}" style="width:auto;height:auto;"></i>`;
+                return `<i class="${icon_val}"></i>`;
             }
 
             // 3. Force Overrides by Workspace NAME
             if (item.name === 'Subcontracting') {
-                return `<img src="/assets/erpnext/desktop_icons/subcontracting.svg" class="slim-svg-icon" style="width: 20px; height: 20px;">`;
+                return `<img src="/assets/erpnext/desktop_icons/subcontracting.svg" class="slim-svg-icon">`;
             }
             if (item.name === 'Build') {
-                return `<img src="/assets/frappe/icons/desktop_icons/subtle/build.svg" class="slim-svg-icon" style="width: 20px; height: 20px;">`;
+                return `<img src="/assets/frappe/icons/desktop_icons/subtle/build.svg" class="slim-svg-icon">`;
             }
 
             // 4. Letter Fallback (Only if no icon found above)
